@@ -12,13 +12,13 @@ antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle MichaelAquilina/zsh-you-should-use
 
+antigen bundle pip
+
 antigen theme romkatv/powerlevel10k
 
 antigen apply
-echo "Antigen"
 
 unsetopt beep
-eval "$(zoxide init zsh)"
 
 zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
@@ -31,18 +31,11 @@ bindkey -e
 
 zstyle :compinstall filename '~/.config/zsh/.zshrc'
 
-_comp_options+=(globdots)
+# _comp_options+=(globdots)
 
 setopt MENU_COMPLETE        # Automatically highlight first element of completion menu
 setopt AUTO_LIST            # Automatically list choices on ambiguous completion.
 setopt COMPLETE_IN_WORD     # Complete from both ends of a word.
-
-prompt_setup() {
-    # RESULT EXPECTED : -> user: path>
-    PROMPT=$'%F{yellow}->%f %F{green}%n%f: %F{blue}%~%f%B>%b'
-}
-
-# prompt_setup
 
 setopt AUTO_PUSHD           # Push the current directory visited on the stack.
 setopt PUSHD_IGNORE_DUPS    # Do not store duplicates in the stack.
@@ -57,8 +50,9 @@ bindkey -M menuselect 'j' vi-down-line-or-history
 autoload -Uz compinit
 compinit
 
+eval "$(zoxide init --cmd cd zsh)"
+
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
 
 # CUSTOM ALIASES
-# alias ls="eza --icons=always"
-alias cd="z"
+alias ls="eza --icons=auto"
