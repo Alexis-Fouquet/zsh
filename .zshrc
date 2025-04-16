@@ -1,3 +1,14 @@
+INSTANT_PROMPT="${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+if [[ -r $INSTANT_PROMPT ]]; then
+  source $INSTANT_PROMPT
+fi
+
+p10k_applied=false
+if [[ -f $ZDOTDIR/.p10k.zsh ]]; then
+    source $ZDOTDIR/.p10k.zsh
+    p10k_applied=true
+fi
+
 echo "START"
 
 # =================
@@ -9,21 +20,14 @@ HISTSIZE=1000
 SAVEHIST=1000
 
 export ZSH="$ZDOTDIR/ohmyzsh"
+# export PATH=$PATH:$ZDOTDIR:$ZSH
 
 unsetopt beep
 setopt autocd
 # Vim better than emacs
 bindkey -v
 
-# Push the directory on the stack
-setopt AUTO_PUSHD
-setopt PUSHD_IGNORE_DUPS
-setopt PUSHD_SILENT
-
-# Show the list of completions and allow to choose in the list
-setopt MENU_COMPLETE
-setopt AUTO_LIST
-setopt COMPLETE_IN_WORD
+alias ls="eza --icons=auto"
 
 # =======================
 # == Plugins and theme ==
@@ -48,11 +52,24 @@ antigen bundle pip
 # p10k
 antigen theme romkatv/powerlevel10k
 
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+echo "apply"
 
 antigen apply
+
+if [[ ! $p10k_applied ]] && [[ -f $ZDOTDIR/.p10k.zsh ]]; then
+    source $ZDOTDIR/.p10k.zsh
+    p10k_applied=true
+fi
+
+# Push the directory on the stack
+setopt AUTO_PUSHD
+setopt PUSHD_IGNORE_DUPS
+setopt PUSHD_SILENT
+
+# Show the list of completions and allow to choose in the list
+setopt MENU_COMPLETE
+setopt AUTO_LIST
+setopt COMPLETE_IN_WORD
 
 zmodload zsh/complist
 bindkey -M menuselect 'h' vi-backward-char
@@ -65,10 +82,7 @@ compinit
 
 eval "$(zoxide init --cmd cd zsh)"
 
-[[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
-
 # CUSTOM ALIASES
-alias ls="eza --icons=auto"
 
 # clear
 
