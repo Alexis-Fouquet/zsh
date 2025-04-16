@@ -1,45 +1,58 @@
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+echo "START"
+
+# =================
+# == Basic setup ==
+# ================
+
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
 
 export ZSH="$ZDOTDIR/ohmyzsh"
-source ~/.config/zsh/antigen.zsh
+
+unsetopt beep
+setopt autocd
+# Vim better than emacs
+bindkey -v
+
+# Push the directory on the stack
+setopt AUTO_PUSHD
+setopt PUSHD_IGNORE_DUPS
+setopt PUSHD_SILENT
+
+# Show the list of completions and allow to choose in the list
+setopt MENU_COMPLETE
+setopt AUTO_LIST
+setopt COMPLETE_IN_WORD
+
+# =======================
+# == Plugins and theme ==
+# =======================
+
+source $ZDOTDIR/antigen.zsh
 
 antigen reset
 antigen use oh-my-zsh
+
+zstyle ':omz:update' mode reminder
+zstyle :compinstall filename "$ZDOTDIR/.zshrc"
+
 antigen bundle git
+antigen bundle colored-man-pages
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle MichaelAquilina/zsh-you-should-use
 
 antigen bundle pip
 
+# p10k
 antigen theme romkatv/powerlevel10k
 
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 antigen apply
-
-unsetopt beep
-
-zstyle ':omz:update' mode reminder  # just remind me to update when it's time
-
-HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=1000
-
-setopt autocd
-bindkey -e
-
-zstyle :compinstall filename '~/.config/zsh/.zshrc'
-
-# _comp_options+=(globdots)
-
-setopt MENU_COMPLETE        # Automatically highlight first element of completion menu
-setopt AUTO_LIST            # Automatically list choices on ambiguous completion.
-setopt COMPLETE_IN_WORD     # Complete from both ends of a word.
-
-setopt AUTO_PUSHD           # Push the current directory visited on the stack.
-setopt PUSHD_IGNORE_DUPS    # Do not store duplicates in the stack.
-setopt PUSHD_SILENT         # Do not print the directory stack after pushd or popd.
 
 zmodload zsh/complist
 bindkey -M menuselect 'h' vi-backward-char
@@ -56,3 +69,8 @@ eval "$(zoxide init --cmd cd zsh)"
 
 # CUSTOM ALIASES
 alias ls="eza --icons=auto"
+
+# clear
+
+echo "END"
+
