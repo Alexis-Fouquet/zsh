@@ -10,6 +10,7 @@ if [[ -f $ZDOTDIR/.p10k.zsh ]]; then
 fi
 
 echo "START"
+ln -s $ZDOTDIR/.zshrc ~/.zshrc
 
 # =================
 # == Basic setup ==
@@ -20,6 +21,7 @@ HISTSIZE=1000
 SAVEHIST=1000
 
 export ZSH="$ZDOTDIR/ohmyzsh"
+export PATH=$PATH:"/var/lib/flatpak/exports/bin"
 # export PATH=$PATH:$ZDOTDIR:$ZSH
 
 unsetopt beep
@@ -27,15 +29,12 @@ setopt autocd
 # Vim better than emacs
 bindkey -v
 
-alias ls="eza --icons=auto"
-
 # =======================
 # == Plugins and theme ==
 # =======================
 
 source $ZDOTDIR/antigen.zsh
 
-antigen reset
 antigen use oh-my-zsh
 
 zstyle ':omz:update' mode reminder
@@ -88,3 +87,5 @@ eval "$(zoxide init --cmd cd zsh)"
 
 echo "END"
 
+alias ls="eza --icons=auto"
+alias vim="nvim"
