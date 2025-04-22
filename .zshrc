@@ -35,6 +35,8 @@ bindkey -v
 
 source $ZDOTDIR/antigen.zsh
 
+antigen theme romkatv/powerlevel10k
+
 antigen use oh-my-zsh
 
 zstyle ':omz:update' mode reminder
@@ -47,9 +49,6 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle MichaelAquilina/zsh-you-should-use
 
 antigen bundle pip
-
-# p10k
-antigen theme romkatv/powerlevel10k
 
 echo "apply"
 
@@ -89,3 +88,10 @@ echo "END"
 
 alias ls="eza --icons=auto"
 alias vim="nvim"
+
+# Nix
+if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+    . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+fi
+# End Nix
+
