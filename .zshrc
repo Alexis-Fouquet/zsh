@@ -1,4 +1,4 @@
-zmodload zsh/zprof
+start=$(date +%s%N)
 
 INSTANT_PROMPT="${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 if [[ -r $INSTANT_PROMPT ]]; then
@@ -104,4 +104,5 @@ fi
 # End Nix
 
 # datenow
-zprof
+end=$(date +%s%N)
+echo $((end-start))
