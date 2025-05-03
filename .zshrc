@@ -5,7 +5,7 @@ fi
 
 # Debug start time
 alias datenow="date +\"%s,%N\""
-# datenow
+datenow
 # echo "START0"
 
 p10k_applied=false
@@ -37,27 +37,17 @@ bindkey -v
 # == Plugins and theme ==
 # =======================
 
-# echo "START antigen"
+echo "START antidote"
+datenow
 
-source $ZDOTDIR/antigen.zsh
-
-antigen theme romkatv/powerlevel10k
-
-antigen use oh-my-zsh
+source $ZDOTDIR/.antidote/antidote.zsh
+antidote load
 
 zstyle ':omz:update' mode reminder
 zstyle :compinstall filename "$ZDOTDIR/.zshrc"
 
-antigen bundle git
-antigen bundle colored-man-pages
-antigen bundle zsh-users/zsh-autosuggestions
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle MichaelAquilina/zsh-you-should-use
-
-antigen apply
-
-# echo "END antigen"
-# datenow
+echo "END antidote"
+datenow
 
 if [[ ! $p10k_applied ]] && [[ -f $ZDOTDIR/.p10k.zsh ]]; then
     source $ZDOTDIR/.p10k.zsh
@@ -106,5 +96,5 @@ if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
 fi
 # End Nix
 
-# datenow
+datenow
 # zprof
