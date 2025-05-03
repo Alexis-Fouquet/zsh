@@ -3,11 +3,10 @@ if [[ -r $INSTANT_PROMPT ]]; then
   source $INSTANT_PROMPT
 fi
 
-zmodload zsh/zprof
-
+# Debug start time
 alias datenow="date +\"%s,%N\""
-datenow
-echo "START0"
+# datenow
+# echo "START0"
 
 p10k_applied=false
 if [[ -f $ZDOTDIR/.p10k.zsh ]]; then
@@ -38,7 +37,7 @@ bindkey -v
 # == Plugins and theme ==
 # =======================
 
-echo "START"
+# echo "START antigen"
 
 source $ZDOTDIR/antigen.zsh
 
@@ -57,15 +56,13 @@ antigen bundle MichaelAquilina/zsh-you-should-use
 
 antigen apply
 
-echo "END"
-datenow
+# echo "END antigen"
+# datenow
 
 if [[ ! $p10k_applied ]] && [[ -f $ZDOTDIR/.p10k.zsh ]]; then
     source $ZDOTDIR/.p10k.zsh
     p10k_applied=true
 fi
-
-datenow
 
 # Push the directory on the stack
 setopt AUTO_PUSHD
@@ -77,26 +74,21 @@ setopt MENU_COMPLETE
 setopt AUTO_LIST
 setopt COMPLETE_IN_WORD
 
-datenow
-
 zmodload zsh/complist
 bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 
-datenow
+# datenow
+# echo "Compinit"
 
 autoload -Uz compinit
 compinit
 
-echo "Middle?"
-
-datenow
+# datenow
 
 eval "$(zoxide init --cmd cd zsh)"
-
-datenow
 
 # CUSTOM ALIASES
 
@@ -114,5 +106,5 @@ if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
 fi
 # End Nix
 
-datenow
-zprof
+# datenow
+# zprof
