@@ -5,7 +5,7 @@ fi
 
 # Debug start time
 alias datenow="date +\"%s,%N\""
-# datenow
+datenow
 # echo "START0"
 
 p10k_applied=false
@@ -106,5 +106,5 @@ if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
 fi
 # End Nix
 
-# datenow
+datenow
 # zprof
