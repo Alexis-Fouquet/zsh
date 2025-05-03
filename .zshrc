@@ -40,8 +40,13 @@ bindkey -v
 # echo "START antidote"
 # datenow
 
-source $ZDOTDIR/.antidote/antidote.zsh
-antidote load
+plugins=$ZDOTDIR/.zsh_plugins.
+if [[ ${plugins}txt -nt ${plugins}zsh ]]; then
+    source $ZDOTDIR/.antidote/antidote.zsh
+    antidote load
+else
+    source ${plugins}zsh
+fi
 
 zstyle ':omz:update' mode reminder
 zstyle :compinstall filename "$ZDOTDIR/.zshrc"
