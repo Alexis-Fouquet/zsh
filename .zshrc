@@ -37,8 +37,8 @@ bindkey -v
 # == Plugins and theme ==
 # =======================
 
-echo "START antidote"
-datenow
+# echo "START antidote"
+# datenow
 
 source $ZDOTDIR/.antidote/antidote.zsh
 antidote load
@@ -46,8 +46,8 @@ antidote load
 zstyle ':omz:update' mode reminder
 zstyle :compinstall filename "$ZDOTDIR/.zshrc"
 
-echo "END antidote"
-datenow
+# echo "END antidote"
+# datenow
 
 if [[ ! $p10k_applied ]] && [[ -f $ZDOTDIR/.p10k.zsh ]]; then
     source $ZDOTDIR/.p10k.zsh
