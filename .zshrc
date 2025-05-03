@@ -1,3 +1,5 @@
+zmodload zsh/zprof
+
 INSTANT_PROMPT="${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 if [[ -r $INSTANT_PROMPT ]]; then
   source $INSTANT_PROMPT
@@ -5,7 +7,7 @@ fi
 
 # Debug start time
 alias datenow="date +\"%s,%N\""
-datenow
+# datenow
 # echo "START0"
 
 p10k_applied=false
@@ -101,5 +103,5 @@ if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
 fi
 # End Nix
 
-datenow
-# zprof
+# datenow
+zprof
