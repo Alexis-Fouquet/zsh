@@ -3,14 +3,19 @@ if [[ -r $INSTANT_PROMPT ]]; then
   source $INSTANT_PROMPT
 fi
 
+zmodload zsh/zprof
+
+alias datenow="date +\"%s,%N\""
+datenow
+echo "START0"
+
 p10k_applied=false
 if [[ -f $ZDOTDIR/.p10k.zsh ]]; then
-    source $ZDOTDIR/.p10k.zsh
+    time source $ZDOTDIR/.p10k.zsh
     p10k_applied=true
 fi
 
-echo "START"
-ln -s $ZDOTDIR/.zshrc ~/.zshrc
+ln -s $ZDOTDIR/.zshrc ~/.zshrc 2> /dev/null
 
 # =================
 # == Basic setup ==
@@ -33,6 +38,8 @@ bindkey -v
 # == Plugins and theme ==
 # =======================
 
+echo "START"
+
 source $ZDOTDIR/antigen.zsh
 
 antigen theme romkatv/powerlevel10k
@@ -48,16 +55,17 @@ antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle MichaelAquilina/zsh-you-should-use
 
-antigen bundle pip
-
-echo "apply"
-
 antigen apply
+
+echo "END"
+datenow
 
 if [[ ! $p10k_applied ]] && [[ -f $ZDOTDIR/.p10k.zsh ]]; then
     source $ZDOTDIR/.p10k.zsh
     p10k_applied=true
 fi
+
+datenow
 
 # Push the directory on the stack
 setopt AUTO_PUSHD
@@ -69,25 +77,36 @@ setopt MENU_COMPLETE
 setopt AUTO_LIST
 setopt COMPLETE_IN_WORD
 
+datenow
+
 zmodload zsh/complist
 bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 
+datenow
+
 autoload -Uz compinit
 compinit
 
+echo "Middle?"
+
+datenow
+
 eval "$(zoxide init --cmd cd zsh)"
+
+datenow
 
 # CUSTOM ALIASES
 
 # clear
 
-echo "END"
-
 alias ls="eza --icons=auto"
 alias vim="nvim"
+
+git config --global alias.adog "log --all --decorate --oneline --graph"
+alias gdog='git adog'
 
 # Nix
 if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
@@ -95,3 +114,5 @@ if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
 fi
 # End Nix
 
+datenow
+zprof
