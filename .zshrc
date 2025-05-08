@@ -99,6 +99,7 @@ alias vim="nvim"
 
 git config --global alias.adog "log --all --decorate --oneline --graph"
 alias gdog='git adog'
+alias icat='kitten icat'
 
 # Nix
 if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
